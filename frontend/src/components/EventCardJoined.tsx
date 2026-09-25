@@ -1,7 +1,7 @@
 import { Card, CardContent, Typography, Button, CardActions } from "@mui/material";
 import type { Event } from "../types/Event";
 
-function EventCard({ event }: { event: Event }) {
+function EventCardJoined({ event }: { event: Event }) {
     return (
         <Card
             sx={{
@@ -47,11 +47,28 @@ function EventCard({ event }: { event: Event }) {
                 marginTop: "auto",
                 justifyContent: "space-between"
                 }}>
-                <Button 
-                size="small"
-                variant="contained"
-                sx={{backgroundColor: "#2563EB", borderRadius: 2, "&:hover": {backgroundColor: "#1D4ED8", borderRadius: 2}}}>
-                    Я приду
+                <Button
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                        color: "#DC2626",
+                        borderColor: "#DC2626",
+                        borderRadius: 2,
+                        "&:hover": {
+                            backgroundColor: "#FEF2F2",
+                            borderColor: "#B91C1C"
+                        }
+                    }}
+                >
+                    Снять запись
+                </Button>
+                <Button size="small" variant="contained"
+                sx={{color:"2563EB",
+                minWidth: 40,
+                 borderColor: "#2563EB",
+                  borderRadius: 2,
+                   "&:hover": {backgroundColor: "#7aaff3"}}}>
+                     💬 
                 </Button>
                 <Button
                 size="small" 
@@ -64,4 +81,4 @@ function EventCard({ event }: { event: Event }) {
     );
 }
 
-export default EventCard;
+export default EventCardJoined;

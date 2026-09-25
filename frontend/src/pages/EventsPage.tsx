@@ -2,7 +2,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
-import EventCard from "../components/EventCard";
+import EventCardSmall from "../components/EventCardSmall";
 import { events } from "../data/mockData";
 
 function EventsPage() {
@@ -17,7 +17,7 @@ function EventsPage() {
                     <Grid key={event.id}
                         size={{ xs: 12, sm: 6, md: 4 }}
                     >
-                        <EventCard event={event} />
+                        <EventCardSmall event={event} />
                     </Grid>
                 ))}
             </Grid>
