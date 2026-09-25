@@ -8,7 +8,7 @@ import { events } from "../data/mockData";
 function EventsPage() {
     return (
         <Container>
-            <Typography variant="h3">
+            <Typography variant="h3" sx={{color: "white"}}>
                 Все события
             </Typography>
 

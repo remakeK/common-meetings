@@ -7,7 +7,9 @@ function EventCard({ event }: { event: Event }) {
             sx={{
                 height: "100%",
                 display: "flex",
-                flexDirection: "column"
+                flexDirection: "column",
+                backgroundColor: "#ffffff",
+                borderRadius: 4
             }}
         >
             <CardContent>
@@ -15,16 +17,17 @@ function EventCard({ event }: { event: Event }) {
                     {event.name}
                 </Typography>
 
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body2" gutterBottom color="textSecondary">
                     {event.date}
                 </Typography>
 
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="body2" gutterBottom color="textSecondary">
                     {event.location}
                 </Typography>
 
                 <Typography
                     variant="body1"
+                    color="textSecondary"
                     sx={{
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
@@ -44,10 +47,16 @@ function EventCard({ event }: { event: Event }) {
                 marginTop: "auto",
                 justifyContent: "space-between"
                 }}>
-                <Button variant="contained">
-                    Вступить
+                <Button 
+                size="small"
+                variant="contained"
+                sx={{backgroundColor: "#2563EB", borderRadius: 2, "&:hover": {backgroundColor: "#1D4ED8", borderRadius: 2}}}>
+                    Я приду
                 </Button>
-                <Button variant="contained">
+                <Button
+                size="small" 
+                variant="outlined"
+                sx={{color: "#000000", borderColor: "#000000", borderRadius: 2}}>
                     Подробнее
                 </Button>
             </CardActions>
