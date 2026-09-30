@@ -32,8 +32,8 @@ function CreateEventPage() {
     }
     return (
         <Container maxWidth="sm">
-            <Typography variant="h3" sx={{color: "white"}}>
-                Все события
+            <Typography variant="h4" sx={{color: "white", mt: 2, mb: 2}}>
+                Создание своего события
             </Typography>
             <form onSubmit={handleSubmit}>
                 <Stack spacing={2}>

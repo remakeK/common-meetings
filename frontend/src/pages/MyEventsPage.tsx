@@ -9,7 +9,7 @@ import { events } from "../data/mockData";
 function MyEventsPage() {
     return (
         <Container>
-            <Typography variant="h3" sx={{color: "white"}}>
+            <Typography variant="h4" sx={{color: "white", mt: 2, mb: 2}}>
                 Мои события
             </Typography>
 
