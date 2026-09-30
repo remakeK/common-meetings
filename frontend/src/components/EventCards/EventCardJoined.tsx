@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography, Button, CardActions } from "@mui/material";
-import type { Event } from "../types/Event";
+import type { Event } from "../../types/Event";
 
 function EventCardJoined({ event }: { event: Event }) {
     return (

@@ -1,14 +1,14 @@
 import { Card, CardContent, Typography, Button, CardActions } from "@mui/material";
-import type { Event } from "../types/Event";
+import type { Event } from "../../types/Event";
 
-function EventCardSmall({ event }: { event: Event }) {
+function EventCardOutdated({ event }: { event: Event }) {
     return (
         <Card
             sx={{
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
-                backgroundColor: "#ffffff",
+                backgroundColor: "#beb0b0",
                 borderRadius: 4
             }}
         >
@@ -45,13 +45,15 @@ function EventCardSmall({ event }: { event: Event }) {
 
             <CardActions sx={{ 
                 marginTop: "auto",
-                justifyContent: "space-between"
+                justifyContent: "space-evenly"
                 }}>
-                <Button 
-                size="small"
-                variant="contained"
-                sx={{backgroundColor: "#2563EB", borderRadius: 2, "&:hover": {backgroundColor: "#1D4ED8", borderRadius: 2}}}>
-                    Я приду
+                <Button size="small" variant="contained"
+                sx={{color:"2563EB",
+                minWidth: 40,
+                 borderColor: "#2563EB",
+                  borderRadius: 2,
+                   "&:hover": {backgroundColor: "#7aaff3"}}}>
+                     💬 
                 </Button>
                 <Button
                 size="small" 
@@ -64,4 +66,4 @@ function EventCardSmall({ event }: { event: Event }) {
     );
 }
 
-export default EventCardSmall;
+export default EventCardOutdated;

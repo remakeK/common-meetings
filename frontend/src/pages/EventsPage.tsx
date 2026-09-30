@@ -2,7 +2,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
-import EventCardSmall from "../components/EventCardSmall";
+import EventCardSmall from "../components/EventCards/EventCardSmall";
 import { events } from "../data/mockData";
 
 function EventsPage() {

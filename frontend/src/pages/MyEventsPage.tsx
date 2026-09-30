@@ -2,8 +2,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
-import EventCardJoined from "../components/EventCardJoined";
-import EventCardOutdated from "../components/EventCardOutdated";
+import EventCardJoined from "../components/EventCards/EventCardJoined";
+import EventCardOutdated from "../components/EventCards/EventCardOutdated";
 import { events } from "../data/mockData";
 
 function MyEventsPage() {
