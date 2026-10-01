@@ -11,7 +11,7 @@ function CreateEventPage() {
     const handleSubmit = (event: React.FormEvent) => {event.preventDefault();
         const newEvent = {
             id: 7,
-            name: name,
+            name: name, 
             description: description,
             date: date,
             location: location,
