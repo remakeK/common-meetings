@@ -1,32 +1,64 @@
-# React + TypeScript + Vite
+# Инструкция по запуску frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Требования
 
-Currently, two official plugins are available:
+Для запуска проекта необходимо установить:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **Node.js** версии 18 или выше;
+* **npm**.
 
-## React Compiler
+Проверить установленные версии можно командами:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+node -v
+npm -v
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Установка проекта
+
+Клонируйте репозиторий и перейдите в каталог frontend:
+
+```bash
+git clone <ссылка-на-репозиторий>
+cd frontend
+```
+
+Установите зависимости проекта:
+
+```bash
+npm install
+```
+
+## Запуск в режиме разработки
+
+Для запуска frontend выполните:
+
+```bash
+npm run dev
+```
+
+После запуска Vite выведет адрес локального сервера, например:
+
+```text
+http://localhost:5173/
+```
+
+Откройте этот адрес в браузере.
+
+## Сборка проекта
+
+Для проверки и сборки проекта выполните:
+
+```bash
+npm run build
+```
+
+Готовая сборка будет создана в каталоге `dist`.
+
+## Стек
+
+* React
+* TypeScript
+* Vite
+* Material UI (MUI)
+* React Router
