@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from pwdlib import PasswordHash
 
-from backend.app.models.entity.user import User
+from backend.app.models.user import User
 from backend.app.repositories.user_repository import UserRepository
 
 

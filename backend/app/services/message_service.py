@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from backend.app.models.entity.message import Message
+from backend.app.models.message import Message
 from backend.app.repositories.chat_repository import ChatRepository
 from backend.app.repositories.message_repository import MessageRepository
 from backend.app.repositories.user_event_repository import UserEventRepository

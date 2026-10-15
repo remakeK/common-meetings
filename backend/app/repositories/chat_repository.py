@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from backend.app.models.entity.chat import Chat
+from backend.app.models.chat import Chat
 
 
 class ChatRepository:

@@ -1,7 +1,7 @@
 from datetime import datetime
 from sqlalchemy.orm import Session
 
-from backend.app.models.entity.event import Event
+from backend.app.models.event import Event
 from backend.app.repositories.event_repository import EventRepository
 
 class EventService:

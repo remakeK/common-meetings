@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from backend.app.models.entity.user_event import UserEvent
+from backend.app.models.user_event import UserEvent
 from backend.app.repositories.event_repository import EventRepository
 from backend.app.repositories.user_event_repository import UserEventRepository
 from backend.app.repositories.user_repository import UserRepository
