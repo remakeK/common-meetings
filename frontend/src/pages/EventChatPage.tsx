@@ -1,81 +1,107 @@
-import { Container, Paper, Stack, Typography, TextField, Button } from "@mui/material";
-import { useState } from "react";
-import type { Message } from "../types/Message";
+import { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+  Grow,
+} from '@mui/material';
 
-function EventChatPage(){
-    const [messages, setMessages] = useState<Message[]>([
-    {
-        id: 1,
-        name: "Андрей",
-        text: "Кто-нибудь ещё идёт на концерт?"
-    },
-    {
-        id: 2,
-        name: "Дмитрий",
-        text: "Да, я иду!"
-    },
-    {
-        id: 3,
-        name: "Максим",
-        text: "Во сколько встреча?"
-    }
-    ]);
+import type { Message } from '../entities/message/model/types';
+import { fetchMessages } from '../entities/message/api/fetchMessages';
+import { usersById } from '../entities/user/api/mockUsers';
+import { CURRENT_USER_ID } from '../entities/user/model/currentUser';
+import { useAsync } from '../shared/lib/useAsync';
+import { ErrorState } from '../shared/ui/ErrorState';
+import { EmptyState } from '../shared/ui/EmptyState';
+import { MessageInput } from '../features/send-message/ui/MessageInput';
 
-    const [text, setText] = useState("");
+export function EventChatPage() {
+  const { id } = useParams<{ id: string }>();
+  const eventId = Number(id);
+  const { data, loading, error } = useAsync(() => fetchMessages(eventId), [eventId]);
 
-    const handleSend = () => {
-        if(text.trim() === ""){
-            return;
-        }
+  const [messages, setMessages] = useState<Message[]>([]);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
-        const newMessage: Message = {
-            id: messages.length + 1,
-            name: "Максим",
-            text: text
-        };
+  useEffect(() => {
+    if (data) setMessages(data);
+  }, [data]);
 
-        setMessages([...messages, newMessage])
-        
-        setText("");
-    }
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
+  }, [messages.length]);
 
-    return (
-        <Container maxWidth="md">
-            <Typography variant="h4" sx={{color: "white", mt: 3, mb: 3}}>
-                Чат
-            </Typography>
-            <Paper sx={{ p: 1 , backgroundColor: "#d3f5fc", overflowWrap: "anywhere" }} >
-                <Stack spacing={2} sx={{backgroundColor: "#d3f5fc"}} >
-                    {messages.map(message => (
-                        <Stack key={message.id} sx={{
-                            alignItems: message.name === "Максим" ? "flex-end" : "flex-start"}}>
-                                <Paper sx={{ p:2 ,
-                            borderRadius: 5}}>
-                                    <Typography sx={{ fontWeight: "bold" }}>
-                                        {message.name}
-                                    </Typography>
-                                    <Typography>
-                                        {message.text}
-                                    </Typography>
-                                </Paper>
-                            </Stack>
-                    ))}
-                <Stack direction="row" spacing={2}>
-                    <TextField 
-                    label="Сообщение" 
-                    value={text}
-                    onChange={(event) => setText(event.target.value)} 
-                    fullWidth
-                    sx={{ backgroundColor: "#ffffff" }}/>
+  const handleSend = (text: string) => {
+    const newMessage: Message = {
+      id: Math.max(0, ...messages.map((m) => m.id)) + 1,
+      eventId,
+      authorId: CURRENT_USER_ID,
+      text,
+      createdAt: new Date().toISOString(),
+    };
+    setMessages((prev) => [...prev, newMessage]);
+  };
 
-                    <Button variant="contained" onClick={handleSend} sx={{flexShrink: 0}}>
-                        Отправить
-                    </Button>
-                </Stack>
-                </Stack>
-            </Paper>
+  return (
+    <Container maxWidth="md" sx={{ mt: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Чат
+      </Typography>
 
-        </Container>
-    );
+      {loading && (
+        <Typography color="text.secondary">Загрузка сообщений…</Typography>
+      )}
+      {error && <ErrorState message={`Не удалось загрузить чат: ${error}`} />}
+
+      {!loading && !error && (
+        <Paper sx={{ p: 2 }}>
+          <Stack
+            ref={scrollRef}
+            spacing={2}
+            sx={{ maxHeight: 500, overflowY: 'auto', pr: 1 }}
+          >
+            {messages.length === 0 ? (
+              <EmptyState
+                title="Сообщений пока нет"
+                description="Напишите первым!"
+              />
+            ) : (
+              messages.map((m) => {
+                const author = usersById[m.authorId];
+                const isMine = m.authorId === CURRENT_USER_ID;
+                return (
+                  <Grow in key={m.id} timeout={300}>
+                    <Stack
+                      sx={{ alignItems: isMine ? 'flex-end' : 'flex-start' }}
+                    >
+                      <Paper
+                        sx={{
+                          p: 2,
+                          borderRadius: 3,
+                          backgroundColor: isMine ? 'primary.dark' : 'grey.800',
+                          maxWidth: '75%',
+                        }}
+                      >
+                        <Typography variant="caption" color="text.secondary">
+                          {author?.name ?? 'Неизвестный'}
+                        </Typography>
+                        <Typography>{m.text}</Typography>
+                      </Paper>
+                    </Stack>
+                  </Grow>
+                );
+              })
+            )}
+          </Stack>
+
+          <Box sx={{ mt: 2 }}>
+            <MessageInput onSend={handleSend} />
+          </Box>
+        </Paper>
+      )}
+    </Container>
+  );
 }
-export default EventChatPage;
