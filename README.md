@@ -1,30 +1,35 @@
 # Структура проекта
 
 fullstack/
-├── backend/                 # FastAPI + PostgreSQL
-│   ├── app/
-│   │   ├── database.py
-│   │   ├── main.py
-│   │   ├── models/
-│   │   ├── repositories/
-│   │   ├── routers/
-│   │   ├── schemas/
-│   │   └── services/
-│   ├── create_tables.py
-│   └── requirements.txt
-├── frontend/                # React + TS + Vite
-│   ├── docs/screenshots/   
-│   ├── public/
-│   ├── src/
-│   │   ├── app/             # провайдеры, роутер, App
-│   │   ├── pages/           # экраны
-│   │   ├── features/        # пользовательские действия
-│   │   ├── entities/        # доменные сущности (event, user, message)
-│   │   ├── shared/          # ui, lib
-│   │   └── main.tsx
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.ts
+├── backend/ # FastAPI + PostgreSQL
+│ ├── app/
+│ │ ├── models/ # SQLAlchemy-модели
+│ │ ├── schemas/ # Pydantic-схемы валидации
+│ │ ├── repositories/ # доступ к данным
+│ │ ├── services/ # бизнес-логика
+│ │ ├── routers/ # эндпоинты API
+│ │ ├── database.py # подключение и сессии БД
+│ │ └── main.py # точка входа приложения
+│ ├── create_tables.py # создание таблиц в PostgreSQL
+│ └── requirements.txt # зависимости Python
+│
+├── frontend/ # React + TypeScript + Vite
+│ ├── docs/
+│ │ └── screenshots/ # скриншоты экранов
+│ ├── public/ # статические файлы
+│ ├── src/
+│ │ ├── app/ # App, роутер, провайдеры (тема MUI)
+│ │ ├── pages/ # экраны приложения
+│ │ ├── features/ # пользовательские действия
+│ │ ├── entities/ # доменные сущности (event, user, message)
+│ │ ├── shared/ # общие компоненты и утилиты
+│ │ ├── main.tsx # точка входа React
+│ │ └── index.css # глобальные стили
+│ ├── index.html
+│ ├── package.json
+│ ├── tsconfig.json
+│ └── vite.config.ts
+│
 ├── .gitignore
 └── README.md
 
