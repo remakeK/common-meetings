@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.app.routers import(user_router, event_router, user_event_router, chat_router)
+from app.routers import(user_router, event_router, user_event_router, chat_router)
 
 app = FastAPI()
 app.include_router(user_router.router)

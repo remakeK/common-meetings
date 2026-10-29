@@ -1,6 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from backend.app.models.message import Message
+from app.models.message import Message
 
 class MessageRepository:
     def __init__(self, db: Session):

@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
 
-from backend.app.models.user_event import UserEvent
-from backend.app.repositories.event_repository import EventRepository
-from backend.app.repositories.user_event_repository import UserEventRepository
-from backend.app.repositories.user_repository import UserRepository
+from app.models.user_event import UserEvent
+from app.repositories.event_repository import EventRepository
+from app.repositories.user_event_repository import UserEventRepository
+from app.repositories.user_repository import UserRepository
 
 class UserEventService:
     def __init__(self, db: Session):

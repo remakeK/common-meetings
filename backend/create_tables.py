@@ -1,4 +1,4 @@
-from backend.app.database import Base, engine
+from app.database import Base, engine
 
 print(list(Base.metadata.tables.keys()))
 

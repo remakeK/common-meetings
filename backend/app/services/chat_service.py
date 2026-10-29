@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 
-from backend.app.models.chat import Chat
-from backend.app.repositories.chat_repository import ChatRepository
-from backend.app.repositories.event_repository import EventRepository
+from app.models.chat import Chat
+from app.repositories.chat_repository import ChatRepository
+from app.repositories.event_repository import EventRepository
 
 class ChatService:
     def __init__(self, db: Session):

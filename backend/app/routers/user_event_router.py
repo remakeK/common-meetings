@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
-from backend.app.database import get_db
-from backend.app.services.user_event_service import UserEventService
+from app.database import get_db
+from app.services.user_event_service import UserEventService
 
 router = APIRouter(prefix="/api/events",tags=["Event participants"],)
 

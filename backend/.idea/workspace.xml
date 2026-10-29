@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5920373-92b7-4f3f-b888-41b1cf7f05f3" name="Changes" comment="" />
+    <list default="true" id="c5920373-92b7-4f3f-b888-41b1cf7f05f3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/chat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/message.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/message.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user_event.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/chat_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/chat_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/event_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/event_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/message_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/message_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/user_event_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_event_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repositories/user_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/chat_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/chat_router.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/event_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/event_router.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/user_event_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/user_event_router.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routers/user_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/user_router.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/chat_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/chat_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/event_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/event_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/message_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/message_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/user_event_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_event_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/user_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +38,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="3KSkles1ezqqjTHFH7wMEHeM7Wn" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -22,8 +50,9 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "frontend",
+    "git-widget-placeholder": "backend",
     "last_opened_file_path": "D:/code/mtuci/fullstack/backend"
   }
 }]]></component>

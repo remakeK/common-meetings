@@ -1,6 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from backend.app.models.event import Event
+from app.models.event import Event
 
 class EventRepository:
     def __init__(self, db: Session):
