@@ -5,30 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5920373-92b7-4f3f-b888-41b1cf7f05f3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/chat.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/chat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/event.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/message.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/message.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/user_event.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/user_event.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/chat_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/chat_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/event_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/event_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/message_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/message_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/user_event_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_event_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repositories/user_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/repositories/user_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routers/chat_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/chat_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routers/event_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/event_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routers/user_event_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/user_event_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routers/user_router.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/routers/user_router.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/chat_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/chat_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/event_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/event_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/message_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/message_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/user_event_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_event_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/user_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/user_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/create_tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Header.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/main.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/main.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/LoginPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/pages/RegistrationPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/types/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/types/Event.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/types/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/types/User.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,16 +31,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "backend",
-    "last_opened_file_path": "D:/code/mtuci/fullstack/backend"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/code/mtuci/fullstack/backend&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>

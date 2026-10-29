@@ -1,102 +1,39 @@
-import { Button, Container, TextField, Typography, Stack } from "@mui/material";
-import { useState } from "react";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Alert, Container, Typography } from '@mui/material';
+import {
+  CreateEventForm,
+  type CreateEventFormValues,
+} from '../features/create-event/ui/CreateEventForm';
 
-function CreateEventPage() {
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [date, setDate] = useState("");
-    const [location, setLocation] = useState("");
-    const [maxParticipants, setMaxParticipants] = useState("");
+export function CreateEventPage() {
+  const navigate = useNavigate();
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-    const handleSubmit = (event: React.FormEvent) => {event.preventDefault();
-        const newEvent = {
-            id: 7,
-            name: name, 
-            description: description,
-            date: date,
-            location: location,
-            maxParticipants: Number(maxParticipants),
-            participants: [{ id: 4, name: "Максим" }],
-            creator: {
-                id: 4,
-                name: "Максим"
-            }
-        };
-        console.log(newEvent);
-
-        setName("");
-        setDescription("");
-        setDate("");
-        setLocation("");
-        setMaxParticipants("");
+  const handleSubmit = async (values: CreateEventFormValues) => {
+    setSubmitError(null);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      console.log('Создано событие:', values);
+      navigate('/events');
+    } catch (e) {
+      setSubmitError(e instanceof Error ? e.message : 'Не удалось создать событие');
     }
-    return (
-        <Container maxWidth="sm">
-            <Typography variant="h4" sx={{color: "white", mt: 2, mb: 2}}>
-                Создание своего события
-            </Typography>
-            <form onSubmit={handleSubmit}>
-                <Stack spacing={2}>
-                    <TextField
-                        value={name}
-                        label="Название события"
-                        onChange={(event) => setName(event.target.value)}
-                        fullWidth
-                        sx={{backgroundColor: "#FFFFFF"}}
-                    />
+  };
 
-                    <TextField
-                        label="Описание"
-                        value={description}
-                        onChange={(event) => setDescription(event.target.value)}
-                        multiline
-                        rows={2}
-                        fullWidth
-                        sx={{backgroundColor: "#FFFFFF"}}
-                    />
+  return (
+    <Container maxWidth="sm" sx={{ mt: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Создание своего события
+      </Typography>
 
-                    <TextField
-                        label="Дата"
-                        value={date}
-                        onChange={(event) => setDate(event.target.value)}
-                        type="date"
-                        slotProps={{
-                            inputLabel: {
-                                shrink: true
-                            }
-                        }}
-                        fullWidth
-                        sx={{backgroundColor: "#FFFFFF"}}
-                    />
+      {submitError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {submitError}
+        </Alert>
+      )}
 
-                    <TextField
-                        label="Место проведения"
-                        value={location}
-                        onChange={(event) => setLocation(event.target.value)}
-                        fullWidth
-                        sx={{backgroundColor: "#FFFFFF"}}
-                    />
-
-                    <TextField
-                        label="Максимальное количество участников"
-                        value={maxParticipants}
-                        onChange={(event) => setMaxParticipants(event.target.value)}
-                        type="number"
-                        fullWidth
-                        sx={{backgroundColor: "#FFFFFF"}}
-                    />
-
-                    <Button
-                        variant="contained"
-                        size="large"
-                        type="submit"
-                    >
-                        Создать событие
-                    </Button>
-                </Stack>
-            </form>
-        </Container>
-    );
+      <CreateEventForm onSubmit={handleSubmit} />
+    </Container>
+  );
 }
-
-export default CreateEventPage;

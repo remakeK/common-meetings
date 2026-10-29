@@ -1,57 +1,56 @@
-import { Button, Container, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Alert, Button, Container, Stack, Typography } from '@mui/material';
+import {
+  RegisterForm,
+  type RegisterFormValues,
+} from '../features/auth/register-form/ui/RegisterForm';
 
-function RegistrationPage(){
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmation, setConfirmation] = useState("");
+export function RegistrationPage() {
+  const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = (event: React.FormEvent) => {event.preventDefault();
-        if(password !== confirmation){
-            return;
-        }
-        const newUser = {
-            id: 67,
-            name: name,
-            password: password
-        };
-        console.log(newUser);
-
-        setName("");
-        setPassword("");
-        setConfirmation("");
+  const handleSubmit = async (values: RegisterFormValues) => {
+    setError(null);
+    setSubmitting(true);
+    try {
+      await new Promise((r) => setTimeout(r, 600));
+      console.log('Зарегистрирован:', { name: values.email });
+      navigate('/login');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Не удалось зарегистрироваться');
+    } finally {
+      setSubmitting(false);
     }
+  };
 
-    const navigate = useNavigate()
-    const handleRedirect = () => {
-        navigate("/login");
-    }
+  return (
+    <Container maxWidth="sm" sx={{ mt: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Регистрация
+      </Typography>
 
-    return(
-        <Container maxWidth="sm">
-            <form onSubmit={handleSubmit}>
-                <Typography variant="h4" sx={{color: "white", mt: 3, mb: 3}}>
-                    Регистрация
-                </Typography>
-                <TextField label="Имя" value={name} onChange={(event)=>setName(event.target.value)} fullWidth sx={{ backgroundColor: "white", mt: 2, mb: 2 }}/>
-                <TextField label="Пароль" value={password} onChange={(event)=>setPassword(event.target.value)} fullWidth sx={{ backgroundColor: "white", mt: 2, mb: 2 }}/>
-                <TextField label="Подтверждение пароля" value={confirmation} onChange={(event)=>setConfirmation(event.target.value)} fullWidth sx={{ backgroundColor: "white", mt: 2, mb: 2 }}/>
-                <Button variant="contained" type="submit" size="large" sx={{mt:2, mb:2}}>
-                    Подтвердить
-                </Button>
-            </form>
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {error}
+        </Alert>
+      )}
 
-            <Stack direction="row" sx={{justifyContent: "center"}}>
-                <Typography variant="body2" sx={{color:"white", mt:3, mb: 3}}>
-                    Уже есть аккаунт?
-                </Typography>
-                <Button variant="text" onClick={handleRedirect} sx={{ textTransform: "none" }}>
-                    Войти
-                </Button>
-            </Stack>
-        </Container>
-    )
+      <RegisterForm onSubmit={handleSubmit} submitting={submitting} />
+
+      <Stack direction="row" sx={{ justifyContent: 'center', mt: 2 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ alignSelf: 'center' }}>
+          Уже есть аккаунт?
+        </Typography>
+        <Button
+          variant="text"
+          onClick={() => navigate('/login')}
+          sx={{ textTransform: 'none' }}
+        >
+          Войти
+        </Button>
+      </Stack>
+    </Container>
+  );
 }
-
-export default RegistrationPage;

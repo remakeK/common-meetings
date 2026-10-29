@@ -1,0 +1,25 @@
+import { Route, Routes } from 'react-router-dom';
+
+import { EventsPage } from '../pages/EventsPage';
+import {LoginPage} from "../pages/LoginPage";
+import {RegistrationPage} from "../pages/RegistrationPage"
+import { HomePage } from '../pages/HomePage';
+import {CreateEventPage} from '../pages/CreateEventPage';
+import {EventPage} from '../pages/EventPage';
+import {EventChatPage} from '../pages/EventChatPage';
+import {MyEventsPage} from '../pages/MyEventsPage';
+
+export function AppRouter() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/registration" element={<RegistrationPage />} />
+      <Route path="/events" element={<EventsPage />} />
+      <Route path="/events/create" element={<CreateEventPage />} />
+      <Route path="/events/:id" element={<EventPage />} />
+      <Route path="/events/:id/chat" element={<EventChatPage />} />
+      <Route path="/events/joined" element={<MyEventsPage />} />
+    </Routes>
+  );
+}

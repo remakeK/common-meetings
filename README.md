@@ -1,3 +1,33 @@
+# Структура проекта
+
+fullstack/
+├── backend/                 # FastAPI + PostgreSQL
+│   ├── app/
+│   │   ├── database.py
+│   │   ├── main.py
+│   │   ├── models/
+│   │   ├── repositories/
+│   │   ├── routers/
+│   │   ├── schemas/
+│   │   └── services/
+│   ├── create_tables.py
+│   └── requirements.txt
+├── frontend/                # React + TS + Vite
+│   ├── docs/screenshots/   
+│   ├── public/
+│   ├── src/
+│   │   ├── app/             # провайдеры, роутер, App
+│   │   ├── pages/           # экраны
+│   │   ├── features/        # пользовательские действия
+│   │   ├── entities/        # доменные сущности (event, user, message)
+│   │   ├── shared/          # ui, lib
+│   │   └── main.tsx
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.ts
+├── .gitignore
+└── README.md
+
 # Пользовательский сценарий
 
 ### Регистрация и вход
@@ -123,3 +153,4 @@
 
 ## Чат
 1. id события (первичный ключ)
+
