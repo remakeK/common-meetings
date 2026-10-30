@@ -16,8 +16,16 @@ class User(Base):
         back_populates="creator"
     )
     event_memberships: Mapped[list["UserEvent"]] = relationship(
-        back_populates="user"
+        back_populates="user",
+        cascade="all, delete",
+        passive_deletes=True,
     )
     messages: Mapped[list["Message"]] = relationship(
-        back_populates="sender"
+        back_populates="sender",
+        cascade="all, delete",
+        passive_deletes=True,
+    )
+
+    refresh_tokens: Mapped[list["RefreshToken"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
     )

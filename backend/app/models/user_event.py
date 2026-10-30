@@ -11,7 +11,7 @@ class UserEvent(Base):
         ForeignKey("users.id"), primary_key=True
     )
     event_id: Mapped[int] = mapped_column(
-        ForeignKey("events.id"), primary_key=True
+        ForeignKey("events.id", ondelete="CASCADE"), nullable = False, primary_key=True
     )
     attendance_status: Mapped[str] = mapped_column(
         String(20), default="UNKNOWN", nullable=False

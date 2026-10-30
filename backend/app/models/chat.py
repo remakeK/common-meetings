@@ -8,12 +8,13 @@ class Chat(Base):
     __tablename__ = "chats"
 
     event_id: Mapped[int] = mapped_column(
-        ForeignKey("events.id"), primary_key=True
+        ForeignKey("events.id", ondelete="CASCADE"),
+        primary_key=True,
     )
 
-    event: Mapped["Event"] = relationship(
-        back_populates="chat"
-    )
+    event: Mapped["Event"] = relationship(back_populates="chat")
     messages: Mapped[list["Message"]] = relationship(
-        back_populates="chat"
+        back_populates="chat",
+        cascade="all, delete",
+        passive_deletes=True,
     )

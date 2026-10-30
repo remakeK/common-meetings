@@ -16,7 +16,6 @@ class UserEventService:
         event = self.event_repository.get_by_id(event_id)
         if event is None:
             raise ValueError("Мероприятие не найдено")
-
         return self.user_event_repository.get_by_event(event_id)
 
     def join(self, user_id: int, event_id: int) -> UserEvent:
@@ -24,22 +23,22 @@ class UserEventService:
         event = self.event_repository.get_by_id(event_id)
         if user is None:
             raise ValueError("Пользователь не найден")
-
         if event is None:
             raise ValueError("Мероприятие не найдено")
 
-        existing = self.user_event_repository.get_membership(
-            user_id, event_id)
-
+        existing = self.user_event_repository.get_membership(user_id, event_id)
         if existing is not None:
             raise ValueError("Пользователь уже записан на мероприятие")
-        participant_count = self.user_event_repository.count_by_event(event_id)
 
+        participant_count = self.user_event_repository.count_by_event(event_id)
         if participant_count >= event.max_participants:
             raise ValueError("На мероприятии больше нет свободных мест")
 
-        membership = UserEvent(user_id=user_id,event_id=event_id,attendance_status="UNKNOWN",)
-
+        membership = UserEvent(
+            user_id=user_id,
+            event_id=event_id,
+            attendance_status="UNKNOWN",
+        )
         try:
             self.user_event_repository.create(membership)
             self.db.commit()
@@ -50,12 +49,10 @@ class UserEventService:
 
     def leave(self, user_id: int, event_id: int) -> None:
         membership = self.user_event_repository.get_membership(user_id, event_id)
-
         if membership is None:
             raise ValueError("Пользователь не записан на мероприятие")
 
         event = self.event_repository.get_by_id(event_id)
-
         if event is not None and event.creator_id == user_id:
             raise ValueError("Создатель не может выйти из своего мероприятия")
 
@@ -66,7 +63,13 @@ class UserEventService:
             self.db.rollback()
             raise
 
-    def mark_attendance(self,user_id: int,event_id: int,status: str,current_user_id: int,) -> UserEvent:
+    def mark_attendance(
+        self,
+        user_id: int,
+        event_id: int,
+        status: str,
+        current_user_id: int,
+    ) -> UserEvent:
         event = self.event_repository.get_by_id(event_id)
         if event is None:
             raise ValueError("Мероприятие не найдено")
@@ -79,10 +82,8 @@ class UserEventService:
         if status not in ("PRESENT", "ABSENT"):
             raise ValueError("Статус должен быть PRESENT или ABSENT")
 
-        membership = self.membership_repository.get_membership(
-            user_id, event_id
-        )
 
+        membership = self.user_event_repository.get_membership(user_id, event_id)
         if membership is None:
             raise ValueError("Участник не записан на мероприятие")
 

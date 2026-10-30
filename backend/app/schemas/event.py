@@ -10,7 +10,11 @@ class EventCreate(BaseModel):
     max_participants: int = Field(gt=0)
 
 class EventUpdate(EventCreate):
-    pass
+    name: str
+    description: str
+    location: str
+    date: datetime
+    max_participants: int = Field(gt=0)
 
 class EventResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)

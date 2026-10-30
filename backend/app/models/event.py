@@ -16,16 +16,19 @@ class Event(Base):
     date: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     max_participants: Mapped[int] = mapped_column(Integer, nullable=False)
 
-    creator_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
-
-    creator: Mapped["User"] = relationship(
-        back_populates="created_events"
+    creator_id: Mapped[int] = mapped_column(               # <-- ВЕРНУТЬ
+        ForeignKey("users.id"), nullable=False
     )
 
+    creator: Mapped["User"] = relationship(back_populates="created_events")
     memberships: Mapped[list["UserEvent"]] = relationship(
-        back_populates="event"
+        back_populates="event",
+        cascade="all, delete",
+        passive_deletes=True,
     )
-
     chat: Mapped["Chat | None"] = relationship(
-        back_populates="event"
+        back_populates="event",
+        uselist=False,
+        cascade="all, delete",
+        passive_deletes=True,
     )

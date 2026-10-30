@@ -1,5 +1,6 @@
 from app.database import Base, engine
+import app.models
 
-print(list(Base.metadata.tables.keys()))
-
-Base.metadata.create_all(bind=engine)
+if __name__ == "__main__":
+    Base.metadata.create_all(bind=engine)
+    print("Tables recreated")
