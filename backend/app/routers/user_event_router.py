@@ -1,25 +1,22 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
 
 from app.database import get_db
+from app.schemas.event import AttendanceUpdate, ParticipantResponse
 from app.services.user_event_service import UserEventService
 from app.core.dependencies import get_current_user
 from app.models.user import User
 
 router = APIRouter(prefix="/api/events",tags=["Event participants"],)
 
-class AttendanceUpdate(BaseModel):
-    status: str
-
-@router.get("/{event_id}/participants")
+@router.get("/{event_id}/participants", response_model=list[ParticipantResponse])
 def get_participants(event_id: int,db: Session = Depends(get_db),):
     try:
         return UserEventService(db).get_participants(event_id)
     except ValueError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
 
-@router.post("/{event_id}/join", status_code=201)
+@router.post("/{event_id}/join", response_model=ParticipantResponse, status_code=201)
 def join_event(
     event_id: int,
     current_user: User = Depends(get_current_user),
@@ -43,7 +40,10 @@ def leave_event(
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
-@router.patch("/{event_id}/participants/{user_id}/attendance")
+@router.patch(
+    "/{event_id}/participants/{user_id}/attendance",
+    response_model=ParticipantResponse,
+)
 def mark_attendance(
     event_id: int,
     user_id: int,
@@ -58,11 +58,7 @@ def mark_attendance(
             status=data.status,
             current_user_id=current_user.id,   # <-- из токена
         )
-        return {
-            "user_id": membership.user_id,
-            "event_id": membership.event_id,
-            "attendance_status": membership.attendance_status,
-        }
+        return membership
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except PermissionError as error:

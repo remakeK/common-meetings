@@ -49,8 +49,14 @@ def update_event(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    service = EventService(db)
     try:
-        return EventService(db).update(
+        service.get_by_id(event_id)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+    try:
+        return service.update(
             event_id=event_id,
             current_user_id=current_user.id,
             name=data.name,
@@ -60,7 +66,7 @@ def update_event(
             max_participants=data.max_participants,
         )
     except ValueError as error:
-        raise HTTPException(status_code=404, detail=str(error)) from error
+        raise HTTPException(status_code=400, detail=str(error)) from error
     except PermissionError as error:
         raise HTTPException(status_code=403, detail=str(error)) from error
 

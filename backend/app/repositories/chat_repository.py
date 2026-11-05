@@ -19,4 +19,4 @@ class ChatRepository:
         self.db.delete(chat)
 
     def get_by_id(self, chat_id: int) -> Chat | None:
-        return self.db.scalar(select(Chat).where(Chat.id == chat_id))
+        return self.db.scalar(select(Chat).where(Chat.event_id == chat_id))
