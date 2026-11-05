@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
+
 from app.models.message import Message
 from app.repositories.chat_repository import ChatRepository
+from app.repositories.event_repository import EventRepository
 from app.repositories.message_repository import MessageRepository
 from app.repositories.user_event_repository import UserEventRepository
 from app.repositories.user_repository import UserRepository
@@ -11,39 +13,31 @@ class MessageService:
         self.db = db
         self.message_repository = MessageRepository(db)
         self.chat_repository = ChatRepository(db)
+        self.event_repository = EventRepository(db)   # +
         self.user_repository = UserRepository(db)
         self.user_event_repository = UserEventRepository(db)
 
     def get_messages(self, chat_id: int, current_user_id: int) -> list[Message]:
         chat = self.chat_repository.get_by_event(chat_id)
-
         if chat is None:
             raise ValueError("Чат не найден")
 
-        self.check_access(chat_id, current_user_id)
+        self.check_access(chat.event_id, current_user_id)
 
         return self.message_repository.get_by_chat(chat_id)
 
-    def send_message(self,chat_id: int,sender_id: int,content: str,) -> Message:
+    def send_message(self, chat_id: int, sender_id: int, content: str) -> Message:
         chat = self.chat_repository.get_by_event(chat_id)
-
         if chat is None:
             raise ValueError("Чат не найден")
 
-        user = self.user_repository.get_by_id(sender_id)
-
-        if user is None:
-            raise ValueError("Пользователь не найден")
-
-        self.check_access(chat_id, sender_id)
+        self.check_access(chat.event_id, sender_id)
 
         content = content.strip()
-
         if not content:
             raise ValueError("Сообщение не может быть пустым")
 
-        message = Message(sender_id=sender_id,chat_id=chat_id,content=content)
-
+        message = Message(sender_id=sender_id, chat_id=chat_id, content=content)
         try:
             self.message_repository.create(message)
             self.db.commit()
@@ -54,10 +48,14 @@ class MessageService:
             raise
 
     def check_access(self, event_id: int, user_id: int) -> None:
-        membership = self.user_event_repository.get_membership(
-            user_id, event_id
-        )
+        event = self.event_repository.get_by_id(event_id)
+        if event is None:
+            raise ValueError("Мероприятие не найдено")
 
+        if event.creator_id == user_id:
+            return
+
+        membership = self.user_event_repository.get_membership(user_id, event_id)
         if membership is None:
             raise PermissionError(
                 "Отправлять и читать сообщения могут только участники мероприятия"

@@ -1,46 +1,54 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
 
 from app.database import get_db
+from app.schemas.event import AttendanceUpdate, ParticipantResponse
 from app.services.user_event_service import UserEventService
+from app.core.dependencies import get_current_user
+from app.models.user import User
 
 router = APIRouter(prefix="/api/events",tags=["Event participants"],)
 
-class AttendanceUpdate(BaseModel):
-    status: str
-
-@router.get("/{event_id}/participants")
+@router.get("/{event_id}/participants", response_model=list[ParticipantResponse])
 def get_participants(event_id: int,db: Session = Depends(get_db),):
     try:
         return UserEventService(db).get_participants(event_id)
     except ValueError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
 
-@router.post("/{event_id}/join", status_code=201)
+@router.post("/{event_id}/join", response_model=ParticipantResponse, status_code=201)
 def join_event(
     event_id: int,
-    user_id: int = Query(...),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     try:
-        return UserEventService(db).join(user_id, event_id)
+        return UserEventService(db).join(current_user.id, event_id)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
+    except PermissionError as error:
+        raise HTTPException(status_code=403, detail=str(error)) from error
 
 @router.delete("/{event_id}/leave", status_code=204)
-def leave_event(event_id: int,user_id: int = Query(...),db: Session = Depends(get_db),):
+def leave_event(
+    event_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     try:
-        UserEventService(db).leave(user_id, event_id)
+        UserEventService(db).leave(current_user.id, event_id)
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
 
-@router.patch("/{event_id}/participants/{user_id}/attendance")
+@router.patch(
+    "/{event_id}/participants/{user_id}/attendance",
+    response_model=ParticipantResponse,
+)
 def mark_attendance(
     event_id: int,
     user_id: int,
     data: AttendanceUpdate,
-    current_user_id: int = Query(...),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     try:
@@ -48,13 +56,9 @@ def mark_attendance(
             user_id=user_id,
             event_id=event_id,
             status=data.status,
-            current_user_id=current_user_id,
+            current_user_id=current_user.id,   # <-- из токена
         )
-        return {
-            "user_id": membership.user_id,
-            "event_id": membership.event_id,
-            "attendance_status": membership.attendance_status,
-        }
+        return membership
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except PermissionError as error:

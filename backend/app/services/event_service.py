@@ -2,12 +2,15 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from app.models.event import Event
+from app.models.user_event import UserEvent
+from app.repositories.user_event_repository import UserEventRepository
 from app.repositories.event_repository import EventRepository
 
 class EventService:
     def __init__(self, db: Session):
         self.db = db
         self.event_repository = EventRepository(db)
+        self.user_event_repository = UserEventRepository(db)
 
     def get_all(self) -> list[Event]:
         return self.event_repository.get_all()
@@ -21,16 +24,22 @@ class EventService:
     def get_by_creator(self, creator_id: int) -> list[Event]:
         return self.event_repository.get_by_creator(creator_id)
 
-    def create(self,name: str,description: str,location: str,
-               date: datetime,max_participants: int,creator_id: int,) -> Event:
+    def create(self, name, description, location, date, max_participants, creator_id) -> Event:
         if max_participants < 1:
             raise ValueError("Количество участников должно быть больше нуля")
 
-        event = Event(name=name,description=description,location=location,
-                      date=date,max_participants=max_participants,creator_id=creator_id,)
-
+        event = Event(name=name, description=description, location=location,
+                      date=date, max_participants=max_participants, creator_id=creator_id)
         try:
             self.event_repository.create(event)
+            self.db.flush()
+
+            self.user_event_repository.create(UserEvent(
+                user_id=creator_id,
+                event_id=event.id,
+                attendance_status="PRESENT",
+            ))
+
             self.db.commit()
             self.db.refresh(event)
             return event

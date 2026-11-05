@@ -5,37 +5,49 @@ from app.database import get_db
 from app.schemas.message import MessageCreate, MessageResponse
 from app.services.chat_service import ChatService
 from app.services.message_service import MessageService
+from app.core.dependencies import get_current_user
+from app.models.user import User
 
 router = APIRouter(prefix="/api/chats", tags=["Chats"])
 
 @router.post("/{event_id}", status_code=201)
-def get_or_create_chat(event_id: int,db: Session = Depends(get_db),):
+def get_or_create_chat(
+    event_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     try:
-        chat = ChatService(db).get_or_create(event_id)
+        chat = ChatService(db).get_or_create(event_id, current_user.id)
         return {"event_id": chat.event_id}
-    except ValueError as error:
-        raise HTTPException(status_code=404, detail=str(error)) from error
-
-@router.get("/{chat_id}/messages",response_model=list[MessageResponse],)
-def get_messages(chat_id: int,user_id: int = Query(...), db: Session = Depends(get_db),):
-    try:
-        return MessageService(db).get_messages(chat_id, user_id)
     except ValueError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
     except PermissionError as error:
         raise HTTPException(status_code=403, detail=str(error)) from error
 
-@router.post("/{chat_id}/messages",response_model=MessageResponse,status_code=201,)
+@router.get("/{chat_id}/messages", response_model=list[MessageResponse])
+def get_messages(
+    chat_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    try:
+        return MessageService(db).get_messages(chat_id, current_user.id)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except PermissionError as error:
+        raise HTTPException(status_code=403, detail=str(error)) from error
+
+@router.post("/{chat_id}/messages", response_model=MessageResponse, status_code=201)
 def send_message(
     chat_id: int,
     data: MessageCreate,
-    user_id: int = Query(...),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
     try:
         return MessageService(db).send_message(
             chat_id=chat_id,
-            sender_id=user_id,
+            sender_id=current_user.id,
             content=data.content,
         )
     except ValueError as error:

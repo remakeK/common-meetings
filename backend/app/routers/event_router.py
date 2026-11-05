@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.schemas.event import EventCreate, EventResponse, EventUpdate
 from app.services.event_service import EventService
+from app.core.dependencies import get_current_user
+from app.models.user import User
 
 router = APIRouter(prefix="/api/events", tags=["Events"])
 
@@ -23,7 +25,11 @@ def get_event(event_id: int,db: Session = Depends(get_db),):
         raise HTTPException(status_code=404, detail=str(error)) from error
 
 @router.post("/", response_model=EventResponse, status_code=201)
-def create_event(data: EventCreate,creator_id: int = Query(...),db: Session = Depends(get_db),):
+def create_event(
+    data: EventCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     try:
         return EventService(db).create(
             name=data.name,
@@ -31,7 +37,7 @@ def create_event(data: EventCreate,creator_id: int = Query(...),db: Session = De
             location=data.location,
             date=data.date,
             max_participants=data.max_participants,
-            creator_id=creator_id,
+            creator_id=current_user.id,
         )
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
@@ -40,18 +46,24 @@ def create_event(data: EventCreate,creator_id: int = Query(...),db: Session = De
 def update_event(
     event_id: int,
     data: EventUpdate,
-    current_user_id: int = Query(...),
+    current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    service = EventService(db)
     try:
-        return EventService(db).update(
+        service.get_by_id(event_id)
+    except ValueError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+
+    try:
+        return service.update(
             event_id=event_id,
-            current_user_id=current_user_id,
+            current_user_id=current_user.id,
             name=data.name,
             description=data.description,
             location=data.location,
             date=data.date,
-            max_participants=data.max_participants
+            max_participants=data.max_participants,
         )
     except ValueError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
@@ -60,9 +72,13 @@ def update_event(
 
 
 @router.delete("/{event_id}", status_code=204)
-def delete_event(event_id: int,current_user_id: int = Query(...),db: Session = Depends(get_db),):
+def delete_event(
+    event_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
     try:
-        EventService(db).delete(event_id, current_user_id)
+        EventService(db).delete(event_id, current_user.id)
     except ValueError as error:
         raise HTTPException(status_code=404, detail=str(error)) from error
     except PermissionError as error:

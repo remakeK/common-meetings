@@ -1,32 +1,43 @@
 # Структура проекта
 
+```text
 fullstack/
-├── backend/                 # FastAPI + PostgreSQL
+├── backend/                          # FastAPI + PostgreSQL
 │   ├── app/
-│   │   ├── database.py
-│   │   ├── main.py
-│   │   ├── models/
-│   │   ├── repositories/
-│   │   ├── routers/
-│   │   ├── schemas/
-│   │   └── services/
-│   ├── create_tables.py
-│   └── requirements.txt
-├── frontend/                # React + TS + Vite
-│   ├── docs/screenshots/   
-│   ├── public/
+│   │   ├── core/                     # конфигурация, безопасность, зависимости
+│   │   ├── models/                   # SQLAlchemy-модели
+│   │   ├── repositories/             # доступ к данным
+│   │   ├── routers/                  # эндпоинты API
+│   │   ├── schemas/                  # Pydantic-схемы валидации
+│   │   ├── services/                 # бизнес-логика
+│   │   ├── database.py               # подключение и сессии БД
+│   │   └── __init__.py
+│   ├── .env.example                  # пример переменных окружения
+│   ├── create_tables.py              # создание таблиц в PostgreSQL
+│   ├── main.py                       # точка входа приложения
+│   └── requirements.txt              # зависимости Python
+├── frontend/                         # React + TypeScript + Vite
+│   ├── docs/
+│   │   └── screenshots/              # скриншоты экранов
+│   ├── public/                       # статические файлы
 │   ├── src/
-│   │   ├── app/             # провайдеры, роутер, App
-│   │   ├── pages/           # экраны
-│   │   ├── features/        # пользовательские действия
-│   │   ├── entities/        # доменные сущности (event, user, message)
-│   │   ├── shared/          # ui, lib
-│   │   └── main.tsx
+│   │   ├── app/                      # приложение, роутер, провайдеры и стили
+│   │   ├── entities/                 # доменные сущности: event, user, message
+│   │   ├── features/                 # пользовательские действия
+│   │   ├── pages/                    # страницы приложения
+│   │   ├── shared/                   # общие компоненты и утилиты
+│   │   ├── index.css                 # глобальные стили
+│   │   └── main.tsx                  # точка входа React
 │   ├── index.html
 │   ├── package.json
+│   ├── package-lock.json
+│   ├── tsconfig.app.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
 │   └── vite.config.ts
 ├── .gitignore
 └── README.md
+```
 
 # Пользовательский сценарий
 

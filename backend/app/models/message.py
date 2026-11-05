@@ -11,8 +11,7 @@ class Message(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     sender_id: Mapped[int] = mapped_column(
-        ForeignKey("users.id"), nullable=False
-    )
+        ForeignKey("users.id"), nullable=False)
     chat_id: Mapped[int] = mapped_column(
         ForeignKey("chats.event_id"), nullable=False
     )

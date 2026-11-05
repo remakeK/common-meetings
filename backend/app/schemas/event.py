@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -10,7 +11,11 @@ class EventCreate(BaseModel):
     max_participants: int = Field(gt=0)
 
 class EventUpdate(EventCreate):
-    pass
+    name: str
+    description: str
+    location: str
+    date: datetime
+    max_participants: int = Field(gt=0)
 
 class EventResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
@@ -21,3 +26,15 @@ class EventResponse(BaseModel):
     date: datetime
     max_participants: int
     creator_id: int
+
+
+class ParticipantResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    user_id: int
+    event_id: int
+    attendance_status: str
+
+
+class AttendanceUpdate(BaseModel):
+    status: Literal["PRESENT", "ABSENT"]
