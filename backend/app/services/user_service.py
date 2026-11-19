@@ -1,12 +1,11 @@
+from pydantic import EmailStr
 from sqlalchemy.orm import Session
 from pwdlib import PasswordHash
 
 from app.models.user import User
-from app.repositories.refresh_token_repository import RefreshTokenRepository
 from app.repositories.user_repository import UserRepository
 from datetime import datetime, timedelta, timezone
 from jose import JWTError
-from app.core.config import settings
 from app.core.security import create_access_token, create_refresh_token, decode_token
 from app.models.refresh_token import RefreshToken
 from app.repositories.refresh_token_repository import RefreshTokenRepository
@@ -19,7 +18,7 @@ class UserService:
         self.refresh_repo = RefreshTokenRepository(db)
         self.password_hash = PasswordHash.recommended()
 
-    def register(self,name: str,email: str,password: str) -> User:
+    def register(self,name: str,email: EmailStr,password: str) -> User:
         if self.user_repository.get_by_email(email) is not None:
             raise ValueError("Пользователь с таким email уже существует")
 
@@ -37,7 +36,7 @@ class UserService:
     def get_by_id(self, user_id: int) -> User | None:
         return self.user_repository.get_by_id(user_id)
 
-    def authenticate(self, email: str, password: str) -> User | None:
+    def authenticate(self, email: EmailStr, password: str) -> User | None:
         user = self.user_repository.get_by_email(email)
         if user is None:
             return None
